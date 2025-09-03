@@ -1,14 +1,25 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerColliosions : MonoBehaviour
 {
+    private void Start()
+    {
+        GameManager.Instance.onPlay.AddListener(ActivatePLayer);
+
+        
+    }
+    private void ActivatePLayer()
+    {
+        gameObject.SetActive(true);
+    }
     private void OnCollisionEnter2D(Collision2D other)
     {
+
         if (other.transform.tag == "obstacle")
         {
-            Destroy(gameObject);
-            //game over screen but thats a tmr issue
-            //gamemanger set game over
+            gameObject.SetActive(false);
+            GameManager.Instance.GameOver();
         }
     }
 }
